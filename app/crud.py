@@ -78,3 +78,36 @@ def atualizar_funcionario(id, nome, idade, profissao, area):
         password = 'minha_senha',
         port = 5432
     )
+     
+     cur = conn.cursor()
+     cur.execute('''UPDATE funcionarios SET nome = ?, idade = ?, profissao = ?, area = ? WHERE id = ?''', (nome, idade, profissao, area, id))
+     conn.commit()
+     conn.close()
+
+def deletar_funcionario(id):
+    """
+    Deleta funcionário da base de dados.
+    """
+    conn = psycopg2.connect(
+        database = 'meu_bd',
+        user = 'meu_usuario',
+        host = 'localhost',
+        password = 'minha_senha',
+        port = 5432
+    )
+
+    cur = conn.cursor()
+    cur.execute('''DELETE FROM funcionarios WHERE id = ?''', (id,))
+    conn.commit()
+    conn.close()
+
+def menu():
+    """
+    Menu da interface.
+    """
+    print('\n1. Adicionar funcionário')
+    print('2. Listar funcionários')
+    print('3. Atualizar funcionário')
+    print('4. Deletar funcionário')
+    print('5. Sair')
+
